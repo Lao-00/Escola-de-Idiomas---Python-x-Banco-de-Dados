@@ -6,8 +6,8 @@ def cadastrar_adm(nome_adm: str, email: str, senha: str):
         con = criar_conexao()
         cursor = con.cursor()
 
-        sql_usuario = "INSERT INTO usuario (email, senha) VALUES (%s, %s) RETURNING usuario_id;"
-        cursor.execute(sql_usuario, (email, senha))
+        sql_usuario = "INSERT INTO usuario (email, senha, tipo_usuario) VALUES (%s, %s, %s) RETURNING usuario_id;"
+        cursor.execute(sql_usuario, (email, senha, 'admin'))
         usuario_id = cursor.fetchone()[0]
 
         sql = "INSERT INTO administrador(nome_adm, usuario_id) VALUES(%s, %s)"

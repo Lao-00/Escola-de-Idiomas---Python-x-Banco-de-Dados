@@ -10,10 +10,11 @@ def cadastrar_aluno(nome_aluno: str, nascimento_aluno: str, cpf_aluno: int, emai
         cursor.execute(sql_usuario, (email, senha))
         usuario_id = cursor.fetchone()[0]
 
-        sql = "INSERT INTO aluno(nome_aluno, nascimento_aluno, cpf_aluno, usuario_id) VALUES(%s, %s, %s, %s)"
+        sql = "INSERT INTO aluno(nome_aluno, nascimento_aluno, cpf_aluno, usuario_id) VALUES(%s, %s, %s, %s) RETURNING aluno_id"
         cursor.execute(sql, (nome_aluno, nascimento_aluno, cpf_aluno, usuario_id))
+        aluno_id, = cursor.fetchone()
         con.commit()
-        print("Aluno cadastrado com sucesso!")
+        print(f"ID do Aluno {aluno_id} cadastrado com sucesso!")
 
     except Exception as e:
         print(e)

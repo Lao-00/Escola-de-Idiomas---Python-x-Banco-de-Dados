@@ -18,7 +18,8 @@ def clear_screen():
 while True:
     print(" 1 - Cadastrar\n 2 - Login\n 3 - Sair")
     opcao = input("Digite a opção: ")
-    #clear_screen()
+    input()
+    clear_screen()
     match opcao: 
         case '1':
             print(" 1 - Aluno\n 2 - Professor\n 3 - Admin")

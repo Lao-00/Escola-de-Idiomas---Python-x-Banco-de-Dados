@@ -6,14 +6,15 @@ def cadastrar_professor(nome_professor: str, especialidade_professor: str, cpf_p
         con = criar_conexao()
         cursor = con.cursor()
 
-        sql_usuario = "INSERT INTO usuario (email, senha) VALUES (%s, %s) RETURNING usuario_id;"
-        cursor.execute(sql_usuario, (email, senha))
+        sql_usuario = "INSERT INTO usuario (email, senha, tipo_usuario) VALUES (%s, %s, %s) RETURNING usuario_id;"
+        cursor.execute(sql_usuario, (email, senha, 'professor'))
         usuario_id = cursor.fetchone()[0]
 
-        sql = "INSERT INTO professor(nome_professor, especialidade_professor, cpf_professor, usuario_id) VALUES(%s, %s, %s, %s)"
+        sql = "INSERT INTO professor(nome_professor, especialidade_professor, cpf_professor, usuario_id) VALUES(%s, %s, %s, %s) RETURNING professor_id"
         cursor.execute(sql, (nome_professor, especialidade_professor, cpf_professor, usuario_id))
+        professor_id, = cursor.fetchone()
         con.commit()
-        print("Professor cadastrado com sucesso!")
+        print(f"ID do Professor {professor_id} cadastrado com sucesso!")
 
     except Exception as e:
         print(e)

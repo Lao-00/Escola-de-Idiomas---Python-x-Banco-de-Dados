@@ -8,9 +8,9 @@ def cadastrar_curso(idioma_curso: str, nome_curso: str, horario_curso: str):
 
         sql = "INSERT INTO curso(idioma_curso, nome_curso, horario_curso) VALUES(%s, %s, %s) RETURNING curso_id"
         cursor.execute(sql, (idioma_curso, nome_curso, horario_curso))
-        curso_id = cursor.fetchone()
+        curso_id, = cursor.fetchone()
         con.commit()
-        print("Curso cadastrado com sucesso!")
+        print(f"ID do Curso {curso_id} cadastrado com sucesso!")
 
     except Exception as e:
         print(e)
